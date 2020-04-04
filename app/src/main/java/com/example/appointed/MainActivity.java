@@ -2,10 +2,13 @@ package com.example.appointed;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.appointed.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,9 +25,16 @@ public class MainActivity extends AppCompatActivity {
         btnHello.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtHello.setText("Apretaste el boton!");
+                //txtHello.setText("Apretaste el boton!");
+                Intent loginIntent= new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
             }
         });
+
+
+
+
+
 
 
     }
