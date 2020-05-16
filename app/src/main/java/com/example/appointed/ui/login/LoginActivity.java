@@ -2,10 +2,12 @@ package com.example.appointed.ui.login;
 
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,15 +26,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.appointed.MainActivity;
 import com.example.appointed.R;
 import com.example.appointed.ui.login.LoginViewModel;
 import com.example.appointed.ui.login.LoginViewModelFactory;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,11 +53,19 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+
+        if(getIntent().getStringExtra("isLoggingOut") != null) {
+            if (getIntent().getStringExtra("isLoggingOut").equals("y")) {
+                currentUser = null;
+                FirebaseAuth.getInstance().signOut();
+            }
+        }
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            updateUiWithUser(new LoggedInUserView(currentUser.getEmail()));
+        }
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
-
-
-
-
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -82,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                finish();
             }
         });
 
@@ -110,8 +126,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+//                    loginViewModel.login(usernameEditText.getText().toString(),
+//                            passwordEditText.getText().toString());
+                    loginButton.performClick();
                 }
                 return false;
             }
@@ -121,15 +138,36 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                String email = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(android.os.Debug.isDebuggerConnected()){
+                                    android.os.Debug.waitForDebugger();
+                                }
+                                if(task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    currentUser = user;
+                                    loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
+                                } else {
+                                    loginViewModel.setLoginFormFailed();
+                                }
+                            }
+                        });
             }
         });
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
+        String welcome = getString(R.string.welcome) + currentUser.getEmail();
         // TODO : initiate successful logged in experience
+        Intent welcomeIntent = new Intent(LoginActivity.this, MainActivity.class);
+        welcomeIntent.putExtra("userName", currentUser.getEmail());
+        welcomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(welcomeIntent);
+        finish();
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 

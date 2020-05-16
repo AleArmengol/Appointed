@@ -51,6 +51,10 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
+    public void setLoginFormFailed(){
+        loginResult.setValue(new LoginResult(R.string.login_failed));
+    }
+
     // A placeholder username validation check
     private boolean isUserNameValid(String username) {
         if (username == null) {
