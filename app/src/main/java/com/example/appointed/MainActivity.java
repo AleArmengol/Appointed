@@ -21,25 +21,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         txtHello = (TextView) findViewById(R.id.txtHello);
         btnHello = (Button) findViewById(R.id.btnHello);
+        txtHello.setText( getIntent().getStringExtra("userName"));
+        btnHello.setText("Log Out");
 
         btnHello.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //txtHello.setText("Apretaste el boton!");
-                Intent loginIntent= new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(loginIntent);
+                Intent logInIntent = new Intent(MainActivity.this, LoginActivity.class);
+                logInIntent.putExtra("isLoggingOut", "y");
+                logInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(logInIntent);
+                finish();
             }
         });
-
-
-
-
-
-
-
     }
 
 
 }
-
-//gonza branch pull request test
