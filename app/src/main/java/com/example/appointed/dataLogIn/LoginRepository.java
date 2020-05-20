@@ -1,6 +1,6 @@
-package com.example.appointed.data;
+package com.example.appointed.dataLogIn;
 
-import com.example.appointed.data.model.LoggedInUser;
+import com.example.appointed.dataLogIn.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

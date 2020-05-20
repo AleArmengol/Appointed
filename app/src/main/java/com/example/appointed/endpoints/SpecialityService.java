@@ -1,4 +1,6 @@
-package com.example.appointed;
+package com.example.appointed.endpoints;
+
+import com.example.appointed.models.Speciality;
 
 import java.util.List;
 import retrofit2.Call;
