@@ -1,19 +1,20 @@
-package com.example.appointed;
+package com.example.appointed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
+
+import com.example.appointed.R;
+import com.example.appointed.models.Speciality;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.appointed.endpoints.SpecialityService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

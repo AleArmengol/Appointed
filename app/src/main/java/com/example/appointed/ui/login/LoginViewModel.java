@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import com.example.appointed.data.LoginRepository;
-import com.example.appointed.data.Result;
-import com.example.appointed.data.model.LoggedInUser;
+import com.example.appointed.dataLogIn.LoginRepository;
+import com.example.appointed.dataLogIn.Result;
+import com.example.appointed.dataLogIn.model.LoggedInUser;
 import com.example.appointed.R;
 
 public class LoginViewModel extends ViewModel {
