@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.example.appointed.data.LoginDataSource;
-import com.example.appointed.data.LoginRepository;
+import com.example.appointed.dataLogIn.LoginDataSource;
+import com.example.appointed.dataLogIn.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
