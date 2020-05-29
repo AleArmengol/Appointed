@@ -13,23 +13,32 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appointed.R;
+import com.example.appointed.models.Patient;
 
 public class MyUserFragment extends Fragment {
 
     private MyUserViewModel slideshowViewModel;
+    private Patient loggedPatient;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
                 ViewModelProviders.of(this).get(MyUserViewModel.class);
         View root = inflater.inflate(R.layout.fragment_my_user, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
+        //final TextView textView = root.findViewById(R.id.text_slideshow);
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+               // textView.setText(s);
             }
         });
+
+        loggedPatient = (Patient) getActivity().getIntent().getSerializableExtra("loggedPatient");
+
+
+
+
         return root;
     }
 }
