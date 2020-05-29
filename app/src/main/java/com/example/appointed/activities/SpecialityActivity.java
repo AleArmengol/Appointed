@@ -44,6 +44,7 @@ public class SpecialityActivity extends AppCompatActivity {
         addSpecialityOnSpinner();
 
 
+
         btnAceptar = (Button) findViewById(R.id.btnAceptar);
 
         btnAceptar.setOnContextClickListener(new View.OnContextClickListener() {
@@ -52,7 +53,7 @@ public class SpecialityActivity extends AppCompatActivity {
                 return false;
             }
         });
-        
+
 
     }
 
@@ -76,8 +77,8 @@ public class SpecialityActivity extends AppCompatActivity {
 
                         especialidades.add(String.valueOf(s.getName()));
                     }
-                    //arrayAdapter.notifyDataSetChanged();
-                    //spinnerEspecialidad.setAdapter((SpinnerAdapter) especialidades);
+
+
 
                 }
 
