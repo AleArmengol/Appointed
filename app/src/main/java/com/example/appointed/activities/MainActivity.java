@@ -20,8 +20,6 @@ import com.example.appointed.models.Patient;
 import com.example.appointed.network.RetrofitClientInstance;
 import com.example.appointed.ui.login.LoginActivity;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     Button btnLogOut;
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Doctor currentDoctor;
     DoctorService doctorService;
     PatientService patientService;
-    Patient currentPatient;
+    Patient loggedPatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +62,17 @@ public class MainActivity extends AppCompatActivity {
                     callPatient.enqueue(new Callback<Patient>() {
                         @Override
                         public void onResponse(Call<Patient> call, Response<Patient> responsePatient) {
-                            currentPatient = responsePatient.body();
-                            txtHello.setText("ID " + Integer.toString(currentPatient.getId()) + "EMAIL: " + currentPatient.getEmail() + "  NAME: " + currentPatient.getName() + " " + currentPatient.getLast_name());
+                            if(android.os.Debug.isDebuggerConnected()){
+                                android.os.Debug.waitForDebugger();
+                            }
+                            loggedPatient = responsePatient.body();
+                            txtHello.setText("ID " + Integer.toString(loggedPatient.getId()) + "EMAIL: " + loggedPatient.getEmail() + "  NAME: " + loggedPatient.getName() + " " + loggedPatient.getLast_name());
+                            Intent patientHomeIntent = new Intent(MainActivity.this, PatientHome.class);
+                            patientHomeIntent.putExtra("loggedPatient", loggedPatient);
+                            //patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(patientHomeIntent);
+                            finish();
+
                         }
                         @Override
                         public void onFailure(Call<Patient> call, Throwable t) {

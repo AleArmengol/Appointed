@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        loginButton.setText("Log In");
 
         if(getIntent().getStringExtra("isLoggingOut") != null) {
             if (getIntent().getStringExtra("isLoggingOut").equals("y")) {

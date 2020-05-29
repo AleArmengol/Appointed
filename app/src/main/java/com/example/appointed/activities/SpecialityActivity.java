@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.appointed.R;
+import com.example.appointed.models.Patient;
 import com.example.appointed.models.Speciality;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class SpecialityActivity extends AppCompatActivity {
     ArrayList<String> especialidades= new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     Button btnAceptar;
+    Patient loggedPatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,13 @@ public class SpecialityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_speciality);
 
         spinnerEspecialidad= (Spinner) findViewById(R.id.Especialidad);
+        loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, especialidades);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEspecialidad.setAdapter(adapter);
         addSpecialityOnSpinner();
+
 
         btnAceptar = (Button) findViewById(R.id.btnAceptar);
 

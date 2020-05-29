@@ -1,4 +1,4 @@
-package com.example.appointed;
+package com.example.appointed.models;
 
 public class Appointment {
 
