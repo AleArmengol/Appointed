@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,10 +36,12 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Button cancelled_appointments_button = (Button)rootView.findViewById(R.id.cancelled_appointments_button);
-        Button past_appointments_button = (Button)rootView.findViewById(R.id.past_appointments_button);
-        Button booked_appointments_button = (Button)rootView.findViewById(R.id.booked_appointments_button);
+        ImageButton cancelled_appointments_button = (ImageButton)rootView.findViewById(R.id.cancelled_appointments_button);
+        ImageButton past_appointments_button = (ImageButton)rootView.findViewById(R.id.past_appointments_button);
+        ImageButton booked_appointments_button = (ImageButton)rootView.findViewById(R.id.booked_appointments_button);
         Button new_appointment_button  = (Button)rootView.findViewById(R.id.new_appointment_button);
+
+
 
         loggedPatient = (Patient) getActivity().getIntent().getSerializableExtra("loggedPatient");
 
@@ -57,7 +60,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 CancelledAppointmentsFragment cafr = new CancelledAppointmentsFragment();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.nav_host_fragment,cafr).commit();
+                manager.beginTransaction().replace(R.id.nav_host_fragment,cafr).addToBackStack(null).commit();
             }
         });
 
@@ -66,7 +69,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 BookedAppointmentsFragment bafr = new BookedAppointmentsFragment();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.nav_host_fragment,bafr).commit();
+                manager.beginTransaction().replace(R.id.nav_host_fragment,bafr).addToBackStack(null).commit();
             }
         });
 
@@ -75,7 +78,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 PastAppointmentsFragment pafr = new PastAppointmentsFragment();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.nav_host_fragment,pafr).commit();
+                manager.beginTransaction().replace(R.id.nav_host_fragment,pafr).addToBackStack(null).commit();
             }
         });
 

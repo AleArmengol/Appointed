@@ -3,12 +3,14 @@ package com.example.appointed.ui.cancelled_appointments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -86,6 +88,9 @@ public class CancelledAppointmentsFragment extends Fragment {
         adapter = new ArrayAdapter<String>(getActivity(),R.layout.fragment_cancelled_appointments, cancelled_appointments);
         message = (TextView) inflater.inflate(R.layout.fragment_cancelled_appointments, container, false).findViewById(R.id.messageText);
         listCancelled.setAdapter(adapter);
+
+
+
         this.getAppointments();
         return inflater.inflate(R.layout.fragment_cancelled_appointments, container, false);
     }
