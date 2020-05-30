@@ -9,8 +9,8 @@
 
     <Spinner
         android:id="@+id/Especialidad"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
+        android:layout_width="231dp"
+        android:layout_height="29dp"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -21,8 +21,10 @@
 
     <Button
         android:id="@+id/btnAceptar"
-        android:layout_width="106dp"
-        android:layout_height="69dp"
+        style="@style/button_color"
+        android:layout_width="229dp"
+        android:layout_height="62dp"
+        android:background="@drawable/accept_button"
         android:text="Aceptar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +46,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/labels"
+        android:textStyle="bold"
         android:layout_marginBottom="36dp"
         android:textSize="22dp"
         android:text="¿Que especialidad esta buscando?"
