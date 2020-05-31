@@ -2,6 +2,7 @@ package com.example.appointed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,7 +28,7 @@ public class SpecialityActivity extends AppCompatActivity {
     Spinner spinnerEspecialidad;
     ArrayList<String> especialidades= new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
-    Button btnAceptar;
+    Button accept_button;
     Patient loggedPatient;
 
     @Override
@@ -36,6 +37,7 @@ public class SpecialityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_speciality);
 
         spinnerEspecialidad= (Spinner) findViewById(R.id.Especialidad);
+        accept_button = (Button) findViewById(R.id.accept_button);
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, especialidades);
@@ -45,12 +47,12 @@ public class SpecialityActivity extends AppCompatActivity {
 
 
 
-        btnAceptar = (Button) findViewById(R.id.btnAceptar);
 
-        btnAceptar.setOnContextClickListener(new View.OnContextClickListener() {
+        accept_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onContextClick(View v) {
-                return false;
+            public void onClick(View view) {
+                Intent intent = new Intent(SpecialityActivity.this, NewAppointmentActivity.class);
+                startActivity(intent);
             }
         });
 

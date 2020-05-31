@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.615" />
 
     <Button
-        android:id="@+id/btnAceptar"
+        android:id="@+id/accept_button"
         style="@style/button_color"
         android:layout_width="229dp"
         android:layout_height="62dp"

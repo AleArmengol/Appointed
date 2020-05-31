@@ -20,6 +20,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Nuevo turno</string>
     <string name="menu_slideshow">Mi usuario</string>
+    <string name="menu_log_out">Cerrar sesión</string>
 
     <string name="home_second">Home Second</string>
 
