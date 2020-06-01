@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,7 +29,6 @@ public class PatientHome extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private Patient loggedPatient;
-    private ImageView log_out_im_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +39,11 @@ public class PatientHome extends AppCompatActivity {
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        log_out_im_button = (ImageButton) findViewById(R.id.log_out_im_button);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_new_appointment, R.id.nav_my_user)
+                R.id.nav_home, R.id.nav_new_appointment, R.id.nav_my_user, R.id.nav_log_out)
                 .setDrawerLayout(drawer)
                 .build();
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
@@ -56,17 +55,17 @@ public class PatientHome extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        log_out_im_button.setOnClickListener(new View.OnClickListener() {
+        navigationView.getMenu().findItem(R.id.nav_log_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onMenuItemClick(MenuItem menuItem) {
                 Intent logInIntent = new Intent(PatientHome.this, LoginActivity.class);
                 logInIntent.putExtra("isLoggingOut", "y");
                 logInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(logInIntent);
                 finish();
+                return true;
             }
         });
-
     }
 
     @Override
