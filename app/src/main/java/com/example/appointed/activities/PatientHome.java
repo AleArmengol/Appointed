@@ -1,5 +1,6 @@
 package com.example.appointed.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.logging.Logger;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -54,18 +56,38 @@ public class PatientHome extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         navigationView.getMenu().findItem(R.id.nav_log_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Intent logInIntent = new Intent(PatientHome.this, LoginActivity.class);
-                logInIntent.putExtra("isLoggingOut", "y");
-                logInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(logInIntent);
-                finish();
+
+                builder.setCancelable(true);
+                builder.setTitle("Atención");
+                builder.setMessage("Realmente desea cerrar sesión ?");
+                builder.setPositiveButton("Confirmar",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent logInIntent = new Intent(PatientHome.this, LoginActivity.class);
+                                logInIntent.putExtra("isLoggingOut", "y");
+                                logInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(logInIntent);
+                                finish();
+                            }
+                        });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 return true;
             }
         });
+
     }
 
     @Override
