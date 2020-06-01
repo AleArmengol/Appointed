@@ -1,12 +1,17 @@
 package com.example.appointed.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.appointed.R;
 import com.example.appointed.models.Patient;
+import com.example.appointed.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.logging.Logger;
@@ -23,6 +28,7 @@ public class PatientHome extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private Patient loggedPatient;
+    private ImageView log_out_im_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,7 @@ public class PatientHome extends AppCompatActivity {
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        log_out_im_button = (ImageButton) findViewById(R.id.log_out_im_button);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
@@ -48,6 +55,17 @@ public class PatientHome extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        log_out_im_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent logInIntent = new Intent(PatientHome.this, LoginActivity.class);
+                logInIntent.putExtra("isLoggingOut", "y");
+                logInIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(logInIntent);
+                finish();
+            }
+        });
 
     }
 

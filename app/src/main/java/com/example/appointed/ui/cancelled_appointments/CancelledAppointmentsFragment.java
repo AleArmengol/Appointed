@@ -101,7 +101,7 @@ public class CancelledAppointmentsFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         AppointmentService aService = retrofit.create(AppointmentService.class);
-        Call<List<Appointment>> call = aService.getAppointments();
+        Call<List<Appointment>> call = aService.getAppointments(2, "cancelled");
 
         call.enqueue(new Callback<List<Appointment>>() {
             @Override
@@ -109,7 +109,6 @@ public class CancelledAppointmentsFragment extends Fragment {
                 if(android.os.Debug.isDebuggerConnected()){
                     android.os.Debug.waitForDebugger();
                 }
-                int x = 0;
                 if (response.body() != null){
                     for (Appointment post : response.body()){
                         cancelled_appointments.add(String.valueOf(post.getDoctor_name()));

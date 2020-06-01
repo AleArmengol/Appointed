@@ -2,11 +2,14 @@ package com.example.appointed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.appointed.R;
 import com.example.appointed.models.Patient;
@@ -27,7 +30,7 @@ public class SpecialityActivity extends AppCompatActivity {
     Spinner spinnerEspecialidad;
     ArrayList<String> especialidades= new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
-    Button btnAceptar;
+    Button accept_button;
     Patient loggedPatient;
 
     @Override
@@ -36,21 +39,32 @@ public class SpecialityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_speciality);
 
         spinnerEspecialidad= (Spinner) findViewById(R.id.Especialidad);
+        accept_button = (Button) findViewById(R.id.accept_button);
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, especialidades);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerEspecialidad.setAdapter(adapter);
         addSpecialityOnSpinner();
-
-
-
-        btnAceptar = (Button) findViewById(R.id.btnAceptar);
-
-        btnAceptar.setOnContextClickListener(new View.OnContextClickListener() {
+        spinnerEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public boolean onContextClick(View v) {
-                return false;
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String text = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
+        accept_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SpecialityActivity.this, NewAppointmentActivity.class);
+                startActivity(intent);
             }
         });
 
