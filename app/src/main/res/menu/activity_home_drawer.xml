@@ -16,5 +16,9 @@
             android:id="@+id/nav_my_user"
             android:icon="@drawable/ic_my_user"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/ic_log_out"
+            android:title="Cerrar sesión" />
     </group>
 </menu>
