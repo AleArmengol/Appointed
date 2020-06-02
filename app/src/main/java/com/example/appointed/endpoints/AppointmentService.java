@@ -11,5 +11,17 @@ import retrofit2.http.Query;
 public interface AppointmentService {
     String API_ROUTE_CANCELLED_APPOINTMENTS = "/appointments";
     @GET(API_ROUTE_CANCELLED_APPOINTMENTS)
-    Call<List<Appointment>> getAppointments(@Query("patient_id") int patient_id, @Query("status") String status);
+    Call<List<Appointment>> getCancelledAppointments(@Query("patient_id") int patient_id, @Query("status") String status);
+
+
+
+
+    String API_ROUTE_PAST_APPOINTMENTS = "/appointments";
+    @GET(API_ROUTE_PAST_APPOINTMENTS)
+    Call<List<Appointment>> getPastAppointments(@Query("patient_id") int patient_id, @Query("status") String status);
+
+
+    String API_ROUTE_BOOKED_APPOINTMETS = "/appointments";
+    @GET(API_ROUTE_BOOKED_APPOINTMETS)
+    Call<List<Appointment>> getBookedAppointments(@Query("patient_id") int patient_id, @Query("status") String status);
 }

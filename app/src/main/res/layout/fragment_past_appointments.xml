@@ -4,110 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.past_appointments.PastAppointmentsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".ui.cancelled_appointments.CancelledAppointmentsFragment">
 
     <TextView
-        android:id="@+id/textView7"
-        android:layout_width="405dp"
-        android:layout_height="16dp"
-        android:text="@string/hello_blank_fragment"
+        android:id="@+id/messageP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="365dp"
-        android:layout_height="108dp"
+    <ListView
+        android:id="@+id/pastAppointmentsList"
+        android:layout_width="409dp"
+        android:layout_height="457dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.124"
-        android:background="@drawable/custom_cards">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/title"
-                style="@style/labels"
-                android:layout_width="357dp"
-                android:layout_height="20dp"
-                android:text="Jueves 1 de Mayo a las 14:30hs"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
-
-            </TextView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:background="@drawable/lines"></View>
-
-            <TextView
-                android:id="@+id/doctor_name"
-                style="@style/labels"
-                android:layout_width="357dp"
-                android:layout_height="20dp"
-                android:text="Lic. Diaz, Luciana Grisel ">
-
-            </TextView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:background="@drawable/lines"></View>
-
-            <TextView
-                android:id="@+id/address_label"
-                style="@style/labels"
-                android:layout_width="357dp"
-                android:layout_height="20dp"
-                android:text="Av. Pedro Dreyer 4667, El Jaguel">
-
-            </TextView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:background="@drawable/lines"></View>
-
-            <TextView
-                android:id="@+id/phone_label"
-                style="@style/labels"
-                android:layout_width="357dp"
-                android:layout_height="20dp"
-                android:text="1152637056">
-
-            </TextView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.2dp"
-                android:background="@drawable/lines"></View>
-
-            <TextView
-                android:id="@+id/email_label"
-                style="@style/labels"
-                android:layout_width="357dp"
-                android:layout_height="20dp"
-                android:text="lucianagdiaz@hotmail.com
-">
-
-            </TextView>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintVertical_bias="0.419" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

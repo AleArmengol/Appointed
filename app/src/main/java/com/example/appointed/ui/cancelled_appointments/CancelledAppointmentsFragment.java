@@ -1,22 +1,23 @@
 package com.example.appointed.ui.cancelled_appointments;
 
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.appointed.models.Appointment;
-import com.example.appointed.endpoints.AppointmentService;
 import com.example.appointed.R;
+import com.example.appointed.endpoints.AppointmentService;
+import com.example.appointed.models.Appointment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,72 +28,37 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CancelledAppointmentsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CancelledAppointmentsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private ListView listCancelled;
-    ArrayList<String> cancelled_appointments = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    TextView message;
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private TextView message;
+    private ListView cancelledAppointmentsList;
+    private ArrayList<String> cancelled_appointments;
+    private ArrayAdapter<String> adapter;
+    private View rootView;
 
-    public CancelledAppointmentsFragment() {
-        Log.d("TEST", "EMPTY CONSTR");
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CancelledAppointmentsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CancelledAppointmentsFragment newInstance(String param1, String param2) {
-        CancelledAppointmentsFragment fragment = new CancelledAppointmentsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    private CancelledAppointmentsViewModel mViewModel;
+
+    public static CancelledAppointmentsFragment newInstance() {
+        return new CancelledAppointmentsFragment();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Log.d("TEST", "ON CREATE CAF");
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        mViewModel =
+                ViewModelProviders.of(this).get(CancelledAppointmentsViewModel.class);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.d("TEST", "ON CREATE VIEW CAF");
-        // Inflate the layout for this fragment
-        listCancelled = (ListView)inflater.inflate(R.layout.fragment_cancelled_appointments, container, false).findViewById(R.id.listCancelled);
-        adapter = new ArrayAdapter<String>(getActivity(),R.layout.fragment_cancelled_appointments, cancelled_appointments);
-        message = (TextView) inflater.inflate(R.layout.fragment_cancelled_appointments, container, false).findViewById(R.id.messageText);
-        listCancelled.setAdapter(adapter);
-
-
+        rootView = inflater.inflate(R.layout.cancelled_appointments_fragment,container,false);
+        message = (TextView) rootView.findViewById(R.id.message);
+        cancelled_appointments = new ArrayList<>();
+        cancelledAppointmentsList = (ListView)rootView.findViewById(R.id.cancelledAppointmentsList);
+        adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,cancelled_appointments);
+        cancelledAppointmentsList.setAdapter(adapter);
 
         this.getAppointments();
-        return inflater.inflate(R.layout.fragment_cancelled_appointments, container, false);
+        return rootView;
     }
 
     private void getAppointments() {
@@ -101,24 +67,22 @@ public class CancelledAppointmentsFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         AppointmentService aService = retrofit.create(AppointmentService.class);
-        Call<List<Appointment>> call = aService.getAppointments(2, "cancelled");
+        Call<List<Appointment>> call = aService.getCancelledAppointments(2, "cancelled");
 
         call.enqueue(new Callback<List<Appointment>>() {
             @Override
             public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
-                if(android.os.Debug.isDebuggerConnected()){
-                    android.os.Debug.waitForDebugger();
-                }
-                if (response.body() != null){
-                    for (Appointment post : response.body()){
+                if(response.body() != null){
+                    for(Appointment post : response.body()){
                         cancelled_appointments.add(String.valueOf(post.getDoctor_name()));
+                        cancelled_appointments.add(String.valueOf(post.getSpeciality_name()));
                         cancelled_appointments.add(String.valueOf(post.getStart_time()));
                         cancelled_appointments.add(String.valueOf(post.getEnd_time()));
                     }
                     adapter.notifyDataSetChanged();
                 }
                 else{
-                    message.setText("No trajo nada");
+                    message.setText("No me trajo nada");
                 }
             }
 
@@ -128,4 +92,5 @@ public class CancelledAppointmentsFragment extends Fragment {
             }
         });
     }
+
 }
