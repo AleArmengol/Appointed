@@ -1,5 +1,6 @@
 package com.example.appointed.ui.home;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
@@ -35,6 +37,7 @@ public class HomeFragment extends Fragment {
         ImageButton past_appointments_button = (ImageButton)rootView.findViewById(R.id.past_appointments_button);
         ImageButton booked_appointments_button = (ImageButton)rootView.findViewById(R.id.booked_appointments_button);
         Button new_appointment_button  = (Button)rootView.findViewById(R.id.new_appointment_button);
+        final AlertDialog.Builder payment = new AlertDialog.Builder(getActivity());
 
 
 
@@ -43,10 +46,27 @@ public class HomeFragment extends Fragment {
         new_appointment_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent specialityActivity = new Intent(getActivity(), SpecialityActivity.class);
-                specialityActivity.putExtra("loggedPatient", loggedPatient);
-                //patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(specialityActivity);
+                if(loggedPatient.isPayment_uptodate()) {
+                    Intent specialityActivity = new Intent(getActivity(), SpecialityActivity.class);
+                    specialityActivity.putExtra("loggedPatient", loggedPatient);
+                    //patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(specialityActivity);
+                }
+                else{
+                    payment.setCancelable(true);
+                    payment.setTitle("ERROR");
+                    payment.setMessage("Usted no podrá sacar un turno hasta que se encuentre al día con los pagos");
+//                    LayoutInflater image = LayoutInflater.from(getActivity());
+//                    final View view = image.inflate(R.layout.error_pop_up, null);
+                    payment.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+//                    payment.setView(view);
+                    AlertDialog dialog = payment.create();
+                    dialog.show();
+                }
             }
         });
 

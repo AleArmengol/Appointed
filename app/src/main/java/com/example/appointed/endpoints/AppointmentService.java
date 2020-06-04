@@ -21,7 +21,7 @@ public interface AppointmentService {
     Call<List<Appointment>> getPastAppointments(@Query("patient_id") int patient_id, @Query("status") String status);
 
 
-    String API_ROUTE_BOOKED_APPOINTMETS = "/appointments";
-    @GET(API_ROUTE_BOOKED_APPOINTMETS)
+    String API_ROUTE_BOOKED_APPOINTMENTS = "/appointments";
+    @GET(API_ROUTE_BOOKED_APPOINTMENTS)
     Call<List<Appointment>> getBookedAppointments(@Query("patient_id") int patient_id, @Query("status") String status);
 }

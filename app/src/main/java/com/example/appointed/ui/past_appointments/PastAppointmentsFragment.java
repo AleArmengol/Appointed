@@ -65,7 +65,7 @@ public class PastAppointmentsFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         AppointmentService aService = retrofit.create(AppointmentService.class);
-        Call<List<Appointment>> call = aService.getPastAppointments(2,"past");
+        Call<List<Appointment>> call = aService.getPastAppointments(6,"past");
 
         call.enqueue(new Callback<List<Appointment>>() {
             @Override
