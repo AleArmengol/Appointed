@@ -67,7 +67,7 @@ public class CancelledAppointmentsFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         AppointmentService aService = retrofit.create(AppointmentService.class);
-        Call<List<Appointment>> call = aService.getCancelledAppointments(2, "cancelled");
+        Call<List<Appointment>> call = aService.getCancelledAppointments(6, "cancelled");
 
         call.enqueue(new Callback<List<Appointment>>() {
             @Override

@@ -20,6 +20,6 @@ public interface DoctorService {
 
     String API_ROUTE_Doctor_By_Speciality="/doctors";
     @GET(API_ROUTE_Doctor_By_Speciality)
-    Call<List<Doctor>> getDoctorsBySpeciality(@Query("speciality_id") int speciality_id);
+    Call<List<Doctor>> getDoctorsBySpeciality(@Query("id") int id);
 }
 
