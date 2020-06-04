@@ -12,20 +12,33 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.appointed.activities.MainActivity;
 import com.example.appointed.R;
+import com.example.appointed.activities.PatientHome;
+import com.example.appointed.endpoints.DoctorService;
+import com.example.appointed.endpoints.PatientService;
+import com.example.appointed.models.Doctor;
+import com.example.appointed.models.Patient;
+import com.example.appointed.network.RetrofitClientInstance;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,6 +50,12 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private CheckBox rememberMeCb;
+    Retrofit retrofit;
+    Doctor currentDoctor;
+    DoctorService doctorService;
+    PatientService patientService;
+    Patient loggedPatient;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        rememberMeCb =  findViewById(R.id.rememberMeCb);
         loginButton.setText("Log In");
 
         if(getIntent().getStringExtra("isLoggingOut") != null) {
@@ -157,15 +177,72 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void onDestroy() {
+        super.onDestroy();
+        if(!rememberMeCb.isChecked()){
+            currentUser = null;
+            FirebaseAuth.getInstance().signOut();
+        }
+    }
+
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + currentUser.getEmail();
         // TODO : initiate successful logged in experience
-        Intent welcomeIntent = new Intent(LoginActivity.this, MainActivity.class);
-        welcomeIntent.putExtra("userName", currentUser.getEmail());
-        welcomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(welcomeIntent);
-        finish();
+//        Intent welcomeIntent = new Intent(LoginActivity.this, MainActivity.class);
+//        welcomeIntent.putExtra("userName", currentUser.getEmail());
+//        welcomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(welcomeIntent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
+
+        retrofit = RetrofitClientInstance.getRetrofitInstance();
+        doctorService = retrofit.create(DoctorService.class);
+        String email = currentUser.getEmail();
+        Call<Doctor> callDoctor = doctorService.getDoctor(0, email);
+
+        callDoctor.enqueue(new Callback<Doctor>() {
+            @Override
+            public void onResponse(Call<Doctor> call, Response<Doctor> responseDoctor) {
+                if(android.os.Debug.isDebuggerConnected()){
+                    android.os.Debug.waitForDebugger();
+                }
+                if(responseDoctor.body() != null){
+                    //TODO this is still not working, because a problem in the backend (doctors_controlelr.rb) Syntax Error (Probably git issue)
+                    currentDoctor = responseDoctor.body();
+                } else { //if we didn't find the doctor, we will search for the patient
+
+                    patientService = retrofit.create(PatientService.class);
+                    Call<Patient> callPatient = patientService.getPatient(0, currentUser.getEmail());
+
+                    callPatient.enqueue(new Callback<Patient>() {
+                        @Override
+                        public void onResponse(Call<Patient> call, Response<Patient> responsePatient) {
+                            if(android.os.Debug.isDebuggerConnected()){
+                                android.os.Debug.waitForDebugger();
+                            }
+                            loggedPatient = responsePatient.body();
+                            Intent patientHomeIntent = new Intent(LoginActivity.this, PatientHome.class);
+                            patientHomeIntent.putExtra("loggedPatient", loggedPatient);
+                            patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(patientHomeIntent);
+                            //finish();
+
+                        }
+                        @Override
+                        public void onFailure(Call<Patient> call, Throwable t) {
+                        }
+                    });
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Doctor> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
