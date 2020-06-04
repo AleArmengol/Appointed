@@ -32,19 +32,17 @@ public class SpecialityActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     Button accept_button;
     Patient loggedPatient;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speciality);
 
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, especialidades);
         spinnerEspecialidad= (Spinner) findViewById(R.id.Especialidad);
         accept_button = (Button) findViewById(R.id.accept_button);
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, especialidades);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerEspecialidad.setAdapter(adapter);
         addSpecialityOnSpinner();
         spinnerEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -86,14 +84,13 @@ public class SpecialityActivity extends AppCompatActivity {
                     android.os.Debug.waitForDebugger();
                 }
                 if(response.body()!=null){
-
                     for(Speciality s:response.body()){
 
                         especialidades.add(String.valueOf(s.getName()));
+
                     }
-
-
-
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerEspecialidad.setAdapter(adapter);
                 }
 
             }
