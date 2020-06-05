@@ -7,15 +7,17 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.appointed.R;
+import com.example.appointed.adapters.AppointmentAdapter;
 import com.example.appointed.endpoints.AppointmentService;
 import com.example.appointed.models.Appointment;
 
@@ -30,11 +32,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookedAppointmentsFragment extends Fragment {
 
-    private TextView messageB;
-    private ListView bookedAppointmentsList;
-    private ArrayList<String> booked_appointments;
-    private ArrayAdapter<String> adapter;
+
     private View rootView;
+
+    private RecyclerView recyclerView;
+    private AppointmentAdapter appointmentAdapter;
+    private ArrayList<Appointment> bookedAppointments;
 
 
     private BookedAppointmentsViewModel mViewModel;
@@ -49,11 +52,10 @@ public class BookedAppointmentsFragment extends Fragment {
         mViewModel =
                 ViewModelProviders.of(this).get(BookedAppointmentsViewModel.class);
         rootView = inflater.inflate(R.layout.fragment_booked_appointments,container,false);
-        messageB = (TextView) rootView.findViewById(R.id.messageB);
-        booked_appointments = new ArrayList<>();
-        bookedAppointmentsList = (ListView) rootView.findViewById(R.id.bookedAppointmentsList);
-        adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,booked_appointments);
-        bookedAppointmentsList.setAdapter(adapter);
+
+        bookedAppointments = new ArrayList<>();
+
+
         this.getAppointments();
         return rootView;
     }
@@ -71,21 +73,19 @@ public class BookedAppointmentsFragment extends Fragment {
             public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                 if(response.body()!=null){
                     for(Appointment post : response.body()){
-                        booked_appointments.add(String.valueOf(post.getDoctor_name()));
-                        booked_appointments.add(String.valueOf(post.getSpeciality_name()));
-                        booked_appointments.add(String.valueOf(post.getStart_time()));
-                        booked_appointments.add(String.valueOf(post.getEnd_time()));
+                        bookedAppointments.add(post);
                     }
-                    adapter.notifyDataSetChanged();
-                }
-                else{
-                    messageB.setText("No me trajo nada");
+                    appointmentAdapter = new AppointmentAdapter(bookedAppointments);
+
+                    recyclerView = (RecyclerView) rootView.findViewById(R.id.booked_appointmentsRV);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(appointmentAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Appointment>> call, Throwable t) {
-                messageB.setText(t.getMessage());
             }
         });
     }
