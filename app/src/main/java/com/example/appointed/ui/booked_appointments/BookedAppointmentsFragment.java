@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.appointed.R;
-import com.example.appointed.adapters.AppointmentAdapter;
+import com.example.appointed.adapters.BookedAppointmentAdapter;
 import com.example.appointed.endpoints.AppointmentService;
 import com.example.appointed.models.Appointment;
 
@@ -32,11 +31,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookedAppointmentsFragment extends Fragment {
 
-
     private View rootView;
-
     private RecyclerView recyclerView;
-    private AppointmentAdapter appointmentAdapter;
+    private BookedAppointmentAdapter appointmentAdapter;
     private ArrayList<Appointment> bookedAppointments;
 
 
@@ -53,12 +50,14 @@ public class BookedAppointmentsFragment extends Fragment {
                 ViewModelProviders.of(this).get(BookedAppointmentsViewModel.class);
         rootView = inflater.inflate(R.layout.fragment_booked_appointments,container,false);
 
+
         bookedAppointments = new ArrayList<>();
 
 
         this.getAppointments();
         return rootView;
     }
+
 
     private void getAppointments() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -75,7 +74,7 @@ public class BookedAppointmentsFragment extends Fragment {
                     for(Appointment post : response.body()){
                         bookedAppointments.add(post);
                     }
-                    appointmentAdapter = new AppointmentAdapter(bookedAppointments);
+                    appointmentAdapter = new BookedAppointmentAdapter(bookedAppointments);
 
                     recyclerView = (RecyclerView) rootView.findViewById(R.id.booked_appointmentsRV);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

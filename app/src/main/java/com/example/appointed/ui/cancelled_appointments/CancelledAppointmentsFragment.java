@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.appointed.R;
+import com.example.appointed.adapters.CancelledAppointmentAdapter;
 import com.example.appointed.endpoints.AppointmentService;
 import com.example.appointed.models.Appointment;
 
@@ -30,11 +34,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CancelledAppointmentsFragment extends Fragment {
 
-    private TextView message;
-    private ListView cancelledAppointmentsList;
-    private ArrayList<String> cancelled_appointments;
-    private ArrayAdapter<String> adapter;
+
     private View rootView;
+    private RecyclerView recyclerView;
+    private ArrayList<Appointment> cancelledAppointments;
+    private CancelledAppointmentAdapter cancelledAdapter;
+
 
 
 
@@ -51,11 +56,8 @@ public class CancelledAppointmentsFragment extends Fragment {
                 ViewModelProviders.of(this).get(CancelledAppointmentsViewModel.class);
 
         rootView = inflater.inflate(R.layout.cancelled_appointments_fragment,container,false);
-        message = (TextView) rootView.findViewById(R.id.message);
-        cancelled_appointments = new ArrayList<>();
-        cancelledAppointmentsList = (ListView)rootView.findViewById(R.id.cancelledAppointmentsList);
-        adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,cancelled_appointments);
-        cancelledAppointmentsList.setAdapter(adapter);
+        cancelledAppointments = new ArrayList<>();
+
 
         this.getAppointments();
         return rootView;
@@ -74,21 +76,19 @@ public class CancelledAppointmentsFragment extends Fragment {
             public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                 if(response.body() != null){
                     for(Appointment post : response.body()){
-                        cancelled_appointments.add(String.valueOf(post.getDoctor_name()));
-                        cancelled_appointments.add(String.valueOf(post.getSpeciality_name()));
-                        cancelled_appointments.add(String.valueOf(post.getStart_time()));
-                        cancelled_appointments.add(String.valueOf(post.getEnd_time()));
+                        cancelledAppointments.add(post);
                     }
-                    adapter.notifyDataSetChanged();
-                }
-                else{
-                    message.setText("No me trajo nada");
+                    cancelledAdapter = new CancelledAppointmentAdapter(cancelledAppointments);
+
+                    recyclerView = (RecyclerView) rootView.findViewById(R.id.booked_appointmentsRV);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(cancelledAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Appointment>> call, Throwable t) {
-                message.setText(t.getMessage());
             }
         });
     }
