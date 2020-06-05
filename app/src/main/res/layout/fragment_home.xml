@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.097" />
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/view_cancelled"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
         android:background="@drawable/lines"

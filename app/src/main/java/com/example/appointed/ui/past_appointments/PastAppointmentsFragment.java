@@ -7,6 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.appointed.R;
+import com.example.appointed.adapters.PastAppointmentAdapter;
 import com.example.appointed.endpoints.AppointmentService;
 import com.example.appointed.models.Appointment;
 
@@ -30,11 +34,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PastAppointmentsFragment extends Fragment {
 
-    private TextView message;
-    private ListView pastAppointmentsList;
-    private ArrayList<String> past_appointments;
-    private ArrayAdapter<String> adapter;
     private View rootView;
+    private RecyclerView recyclerView;
+    private PastAppointmentAdapter pastAdapter;
+    private ArrayList<Appointment> pastAppointments;
+
+
 
 
     private PastAppointmentsViewModel mViewModel;
@@ -50,11 +55,9 @@ public class PastAppointmentsFragment extends Fragment {
                 ViewModelProviders.of(this).get(PastAppointmentsViewModel.class);
 
         rootView = inflater.inflate(R.layout.fragment_past_appointments,container,false);
-        message = (TextView) rootView.findViewById(R.id.messageP);
-        past_appointments = new ArrayList<>();
-        pastAppointmentsList = (ListView) rootView.findViewById(R.id.pastAppointmentsList);
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,past_appointments);
-        pastAppointmentsList.setAdapter(adapter);
+        pastAppointments = new ArrayList<>();
+
+
         this.getAppointments();
         return rootView;
     }
@@ -72,21 +75,19 @@ public class PastAppointmentsFragment extends Fragment {
             public void onResponse(Call<List<Appointment>> call, Response<List<Appointment>> response) {
                 if(response.body() != null){
                     for(Appointment post : response.body()){
-                        past_appointments.add(String.valueOf(post.getDoctor_name()));
-                        past_appointments.add(String.valueOf(post.getSpeciality_name()));
-                        past_appointments.add(String.valueOf(post.getStart_time()));
-                        past_appointments.add(String.valueOf(post.getEnd_time()));
+                        pastAppointments.add(post);
                     }
-                    adapter.notifyDataSetChanged();
-                }
-                else{
-                    message.setText("No trajo nada");
+                    pastAdapter = new PastAppointmentAdapter(pastAppointments);
+
+                    recyclerView = (RecyclerView) rootView.findViewById(R.id.booked_appointmentsRV);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(pastAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Appointment>> call, Throwable t) {
-                message.setText(t.getMessage());
             }
         });
     }
