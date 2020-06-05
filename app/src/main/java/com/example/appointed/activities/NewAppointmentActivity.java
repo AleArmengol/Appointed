@@ -3,6 +3,7 @@ package com.example.appointed.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,6 +33,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
     private ImageView female_doctor;
     private ImageView male_doctor;
     private Button next_button;
+    private int specialityId;
+    private String specialityName;
 
 
     ArrayAdapter<String> spinnerArrayAdapter;
@@ -51,12 +54,15 @@ public class NewAppointmentActivity extends AppCompatActivity {
         day_spinner = (Spinner) findViewById(R.id.day_spinner);
         hour_spinner = (Spinner) findViewById(R.id.hour_spinner);
         next_button = (Button) findViewById(R.id.next_button);
+        specialityId = getIntent().getIntExtra("specialityId", 0);
+        specialityName = getIntent().getStringExtra("specialityName");
         doctors.add("Seleccione un profesional ...");
         addItemsOnDoctorSpinner();
         doctor_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String text = adapterView.getItemAtPosition(i).toString();
+                Log.d("ITEM SELECTED DROPDOWN", text);
             }
 
             @Override
@@ -75,7 +81,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 .build();
 
         final DoctorService doctorService = retrofit.create(DoctorService.class);
-        Call<List<Doctor>> call = doctorService.getDoctorsBySpeciality(33);
+        Call<List<Doctor>> call = doctorService.getDoctorsBySpeciality(specialityId);
 
         call.enqueue(new Callback<List<Doctor>>() {
             @Override

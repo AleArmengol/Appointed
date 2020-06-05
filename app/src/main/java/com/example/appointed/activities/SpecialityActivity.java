@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.appointed.R;
 import com.example.appointed.models.Patient;
@@ -28,19 +28,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SpecialityActivity extends AppCompatActivity {
 
     Spinner spinnerEspecialidad;
-    ArrayList<String> especialidades= new ArrayList<>();
+    ArrayList<String> specialityNames = new ArrayList<>();
     ArrayAdapter<String> arrayAdapter;
     Button accept_button;
     Patient loggedPatient;
+    ArrayList<Speciality> specialities  = new ArrayList<>();
     ArrayAdapter<String> adapter;
+    String specialitySelected;
+    int idSpecialitySelected = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speciality);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, especialidades);
-        especialidades.add("Seleccione Especialidad...");
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, specialityNames);
+        specialityNames.add("Seleccione Especialidad...");
         spinnerEspecialidad= (Spinner) findViewById(R.id.Especialidad);
         accept_button = (Button) findViewById(R.id.accept_button);
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
@@ -48,7 +51,12 @@ public class SpecialityActivity extends AppCompatActivity {
         spinnerEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String text = adapterView.getItemAtPosition(i).toString();
+                if(i != 0){
+                    specialitySelected = adapterView.getItemAtPosition(i).toString();
+                    idSpecialitySelected = specialities.get(i-1).getId();
+                }
+
+
             }
 
             @Override
@@ -62,8 +70,10 @@ public class SpecialityActivity extends AppCompatActivity {
         accept_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SpecialityActivity.this, NewAppointmentActivity.class);
-                startActivity(intent);
+                Intent intentNewAppointment = new Intent(SpecialityActivity.this, NewAppointmentActivity.class);
+                intentNewAppointment.putExtra("specialityId", idSpecialitySelected);
+                intentNewAppointment.putExtra("specialityName", specialitySelected);
+                startActivity(intentNewAppointment);
             }
         });
 
@@ -87,7 +97,8 @@ public class SpecialityActivity extends AppCompatActivity {
                 if(response.body()!=null){
                     for(Speciality s:response.body()){
 
-                        especialidades.add(String.valueOf(s.getName()));
+                        specialityNames.add(String.valueOf(s.getName()));
+                        specialities.add(s);
 
                     }
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
