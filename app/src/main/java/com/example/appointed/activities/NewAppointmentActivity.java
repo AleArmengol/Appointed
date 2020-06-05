@@ -2,9 +2,10 @@ package com.example.appointed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +33,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
     private ImageView female_doctor;
     private ImageView male_doctor;
     private Button next_button;
+    private int specialityId;
+    private String specialityName;
 
 
     ArrayAdapter<String> spinnerArrayAdapter;
@@ -42,7 +45,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_appointment);
-        addItemsOnDoctorSpinner();
+
+        spinnerArrayAdapter = new ArrayAdapter<>(NewAppointmentActivity.this,android.R.layout.simple_spinner_item,doctors);
 
         female_doctor = new ImageView(this);
         male_doctor = new ImageView(this);
@@ -50,24 +54,26 @@ public class NewAppointmentActivity extends AppCompatActivity {
         day_spinner = (Spinner) findViewById(R.id.day_spinner);
         hour_spinner = (Spinner) findViewById(R.id.hour_spinner);
         next_button = (Button) findViewById(R.id.next_button);
-
-        spinnerArrayAdapter = new ArrayAdapter<>(NewAppointmentActivity.this,android.R.layout.simple_list_item_1,doctors);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        doctor_spinner.setAdapter(spinnerArrayAdapter);
-
-
-        next_button.setOnClickListener(new View.OnClickListener() {
+        specialityId = getIntent().getIntExtra("specialityId", 0);
+        specialityName = getIntent().getStringExtra("specialityName");
+        doctors.add("Seleccione un profesional ...");
+        addItemsOnDoctorSpinner();
+        doctor_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String text = adapterView.getItemAtPosition(i).toString();
+                Log.d("ITEM SELECTED DROPDOWN", text);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
 
-
     }
 
     public void addItemsOnDoctorSpinner() {
-        doctor_spinner = (Spinner) findViewById(R.id.doctor_spinner);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/")
@@ -75,7 +81,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 .build();
 
         final DoctorService doctorService = retrofit.create(DoctorService.class);
-        Call<List<Doctor>> call = doctorService.getDoctorsBySpeciality(12);
+        Call<List<Doctor>> call = doctorService.getDoctorsBySpeciality(specialityId);
 
         call.enqueue(new Callback<List<Doctor>>() {
             @Override
@@ -85,6 +91,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
                     for(Doctor d : response.body()){
                         doctors.add(d.getName() + " " + d.getLast_name());
                     }
+                    spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    doctor_spinner.setAdapter(spinnerArrayAdapter);
                 }
             }
 

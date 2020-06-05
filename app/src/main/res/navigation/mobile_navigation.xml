@@ -29,11 +29,6 @@
             app:argType="string" />
     </fragment>
 
-    <fragment
-        android:id="@+id/nav_new_appointment"
-        android:name="com.example.appointed.ui.newAppointment.NewAppointmentFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_new_appointment" />
 
     <fragment
         android:id="@+id/nav_my_user"

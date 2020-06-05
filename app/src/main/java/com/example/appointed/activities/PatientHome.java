@@ -57,6 +57,7 @@ public class PatientHome extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder payment = new AlertDialog.Builder(this);
 
         navigationView.getMenu().findItem(R.id.nav_log_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
@@ -85,6 +86,34 @@ public class PatientHome extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 return true;
+            }
+        });
+
+        navigationView.getMenu().findItem(R.id.nav_new_appointment).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if(loggedPatient.isPayment_uptodate()) {
+                    Intent specialityActivity = new Intent(PatientHome.this, SpecialityActivity.class);
+                    specialityActivity.putExtra("loggedPatient", loggedPatient);
+                    //patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(specialityActivity);
+                }
+                else{
+                    payment.setCancelable(true);
+                    payment.setTitle("ERROR");
+                    payment.setMessage("Usted no podrá sacar un turno hasta que se encuentre al día con los pagos");
+//                    LayoutInflater image = LayoutInflater.from(getActivity());
+//                    final View view = image.inflate(R.layout.error_pop_up, null);
+                    payment.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+//                    payment.setView(view);
+                    AlertDialog dialog = payment.create();
+                    dialog.show();
+                }
+                return false;
             }
         });
 
