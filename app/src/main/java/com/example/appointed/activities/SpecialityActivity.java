@@ -46,6 +46,9 @@ public class SpecialityActivity extends AppCompatActivity {
         specialityNames.add("Seleccione Especialidad...");
         spinnerEspecialidad= (Spinner) findViewById(R.id.Especialidad);
         accept_button = (Button) findViewById(R.id.accept_button);
+        accept_button.setEnabled(false);
+        accept_button.setClickable(false);
+        accept_button.setAlpha(.3f);
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
         addSpecialityOnSpinner();
         spinnerEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -54,6 +57,13 @@ public class SpecialityActivity extends AppCompatActivity {
                 if(i != 0){
                     specialitySelected = adapterView.getItemAtPosition(i).toString();
                     idSpecialitySelected = specialities.get(i-1).getId();
+                    accept_button.setEnabled(true);
+                    accept_button.setClickable(true);
+                    accept_button.setAlpha(1f);
+                } else {
+                    accept_button.setEnabled(false);
+                    accept_button.setClickable(false);
+                    accept_button.setAlpha(.3f);
                 }
 
 
