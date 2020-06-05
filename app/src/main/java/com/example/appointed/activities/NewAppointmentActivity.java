@@ -2,7 +2,9 @@ package com.example.appointed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,6 +54,14 @@ public class NewAppointmentActivity extends AppCompatActivity {
         spinnerArrayAdapter = new ArrayAdapter<>(NewAppointmentActivity.this,android.R.layout.simple_list_item_1,doctors);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         doctor_spinner.setAdapter(spinnerArrayAdapter);
+
+
+        next_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
     }
