@@ -3,6 +3,8 @@ package com.example.appointed.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,7 +42,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_appointment);
-        addItemsOnDoctorSpinner();
+
+        spinnerArrayAdapter = new ArrayAdapter<>(NewAppointmentActivity.this,android.R.layout.simple_spinner_item,doctors);
 
         female_doctor = new ImageView(this);
         male_doctor = new ImageView(this);
@@ -48,16 +51,23 @@ public class NewAppointmentActivity extends AppCompatActivity {
         day_spinner = (Spinner) findViewById(R.id.day_spinner);
         hour_spinner = (Spinner) findViewById(R.id.hour_spinner);
         next_button = (Button) findViewById(R.id.next_button);
+        doctors.add("Seleccione un profesional ...");
+        addItemsOnDoctorSpinner();
+        doctor_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String text = adapterView.getItemAtPosition(i).toString();
+            }
 
-        spinnerArrayAdapter = new ArrayAdapter<>(NewAppointmentActivity.this,android.R.layout.simple_list_item_1,doctors);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        doctor_spinner.setAdapter(spinnerArrayAdapter);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
 
     }
 
     public void addItemsOnDoctorSpinner() {
-        doctor_spinner = (Spinner) findViewById(R.id.doctor_spinner);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/")
@@ -75,6 +85,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
                     for(Doctor d : response.body()){
                         doctors.add(d.getName() + " " + d.getLast_name());
                     }
+                    spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    doctor_spinner.setAdapter(spinnerArrayAdapter);
                 }
             }
 
