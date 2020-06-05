@@ -40,6 +40,7 @@ public class SpecialityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_speciality);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, especialidades);
+        especialidades.add("Seleccione Especialidad...");
         spinnerEspecialidad= (Spinner) findViewById(R.id.Especialidad);
         accept_button = (Button) findViewById(R.id.accept_button);
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");

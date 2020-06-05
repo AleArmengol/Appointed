@@ -65,7 +65,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
                 .build();
 
         final DoctorService doctorService = retrofit.create(DoctorService.class);
-        Call<List<Doctor>> call = doctorService.getDoctorsBySpeciality(12);
+        Call<List<Doctor>> call = doctorService.getDoctorsBySpeciality(33);
 
         call.enqueue(new Callback<List<Doctor>>() {
             @Override
