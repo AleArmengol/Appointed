@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ConfirmationActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirmacion"
+            android:textColor="#FFFF"
+            android:textSize="25dp">
+
+        </TextView>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="349dp"
+        android:layout_height="168dp"
+        android:background="@drawable/custom_table_layout"
+        android:orientation="vertical"
+        android:stretchColumns="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2">
+
+
+        <TableRow>
+
+            <TextView
+                style="@style/user_title"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="Informacion del turno"
+                android:textStyle="bold"></TextView>
+
+        </TableRow>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@drawable/lines" />
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textNameConfirmation"
+                style="@style/user_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="nombre y apellido"></TextView>
+        </TableRow>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@drawable/lines" />
+
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/day_hour"
+                style="@style/user_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="dia y hora"></TextView>
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@drawable/lines" />
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textAddressConfirmation"
+                style="@style/user_info"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="direccion"></TextView>
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@drawable/lines" />
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textNumberConfirmation"
+                style="@style/user_info"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="numero telefono"></TextView>
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@drawable/lines" />
+
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/textEmailConfirmation"
+                style="@style/user_info"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="mail"></TextView>
+        </TableRow>
+
+    </TableLayout>
+
+
+    <Button
+        android:id="@+id/confirmation_button"
+        style="@style/button_color"
+        android:layout_width="240dp"
+        android:layout_height="51dp"
+        android:background="@drawable/new_appointment_button"
+        android:elevation="4dp"
+        android:text="Reservar turno"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.739" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        style="@style/button_color"
+        android:layout_width="192dp"
+        android:layout_height="36dp"
+        android:background="@drawable/new_appointment_button"
+        android:elevation="4dp"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.895" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="216dp"
+        android:layout_height="181dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/maps"
+        app:layout_constraintBottom_toTopOf="@+id/confirmation_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

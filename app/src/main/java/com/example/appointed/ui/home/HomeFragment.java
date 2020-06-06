@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appointed.R;
+import com.example.appointed.activities.ConfirmationActivity;
 import com.example.appointed.activities.SpecialityActivity;
 import com.example.appointed.models.Patient;
 import com.example.appointed.ui.booked_appointments.BookedAppointmentsFragment;
@@ -49,8 +50,18 @@ public class HomeFragment extends Fragment {
                 if(loggedPatient.isPayment_uptodate()) {
                     Intent specialityActivity = new Intent(getActivity(), SpecialityActivity.class);
                     specialityActivity.putExtra("loggedPatient", loggedPatient);
-                    //patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  DEJAR ESTA LINEA COMENTADA
                     startActivity(specialityActivity);
+
+                    //Intent ConfirmationActivity = new Intent(getActivity(), ConfirmationActivity.class);
+                    //startActivity(ConfirmationActivity);
+
+
+
+
+
+
+
                 }
                 else{
                     payment.setCancelable(true);
