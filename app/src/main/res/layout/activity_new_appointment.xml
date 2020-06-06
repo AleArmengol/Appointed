@@ -59,7 +59,7 @@
         app:srcCompat="@drawable/ic_down_arrow" />
 
     <ImageView
-        android:id="@+id/arrow"
+        android:id="@+id/displayHours"
         android:layout_width="31dp"
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,9 +83,11 @@
         app:layout_constraintVertical_bias="0.295" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/goToCalendar"
         android:layout_width="31dp"
         android:layout_height="30dp"
+        android:clickable="true"
+        android:elevation="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.876"
@@ -149,6 +151,7 @@
         style="@style/button_color"
         android:layout_width="166dp"
         android:layout_height="39dp"
+        android:alpha="0.3"
         android:background="@drawable/accept_button"
         android:text="Siguiente"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -157,6 +160,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.958" />
+
+    <TextView
+        android:id="@+id/selectDateTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccione una fecha..."
+        android:elevation="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/hour_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/goToCalendar"
+        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.52" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

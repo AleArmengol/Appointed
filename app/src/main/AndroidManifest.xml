@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.appointed">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ConfirmationActivity"></activity>
+        <activity android:name=".activities.CalendarActivity"></activity>
         <activity android:name=".activities.NewAppointmentActivity" />
         <activity android:name=".activities.SpecialityActivity" />
         <activity android:name=".activities.PatientHome" />
@@ -28,5 +26,7 @@
         </activity>
         <activity android:name=".activities.MainActivity" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
