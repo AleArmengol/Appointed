@@ -1,5 +1,7 @@
 package com.example.appointed.models;
 
+import java.io.Serializable;
+
 public class Appointment {
 
     private int id;
