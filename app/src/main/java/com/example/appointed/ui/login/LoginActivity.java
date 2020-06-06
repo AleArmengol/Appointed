@@ -223,6 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                             loggedPatient = responsePatient.body();
                             Intent patientHomeIntent = new Intent(LoginActivity.this, PatientHome.class);
                             patientHomeIntent.putExtra("loggedPatient", loggedPatient);
+                            Log.d("set loggedPatient", loggedPatient.getEmail());
                             patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(patientHomeIntent);
                             //finish();
