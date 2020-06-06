@@ -53,15 +53,6 @@ public class HomeFragment extends Fragment {
                     //patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  DEJAR ESTA LINEA COMENTADA
                     startActivity(specialityActivity);
 
-                    //Intent ConfirmationActivity = new Intent(getActivity(), ConfirmationActivity.class);
-                    //startActivity(ConfirmationActivity);
-
-
-
-
-
-
-
                 }
                 else{
                     payment.setCancelable(true);

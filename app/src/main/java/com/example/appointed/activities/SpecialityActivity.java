@@ -52,6 +52,7 @@ public class SpecialityActivity extends AppCompatActivity {
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
         addSpecialityOnSpinner();
         spinnerEspecialidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i != 0){
@@ -65,13 +66,10 @@ public class SpecialityActivity extends AppCompatActivity {
                     accept_button.setClickable(false);
                     accept_button.setAlpha(.3f);
                 }
-
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -83,6 +81,8 @@ public class SpecialityActivity extends AppCompatActivity {
                 Intent intentNewAppointment = new Intent(SpecialityActivity.this, NewAppointmentActivity.class);
                 intentNewAppointment.putExtra("specialityId", idSpecialitySelected);
                 intentNewAppointment.putExtra("specialityName", specialitySelected);
+                Log.d("info",specialitySelected);
+                Log.d("info",Integer.toString(idSpecialitySelected));
                 startActivity(intentNewAppointment);
             }
         });

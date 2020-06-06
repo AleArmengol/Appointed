@@ -2,6 +2,7 @@ package com.example.appointed.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,6 +69,14 @@ public class NewAppointmentActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        next_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentConfirmation = new Intent(NewAppointmentActivity.this, ConfirmationActivity.class);
+                startActivity(intentConfirmation);
             }
         });
 

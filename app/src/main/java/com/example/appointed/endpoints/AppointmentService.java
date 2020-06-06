@@ -24,4 +24,8 @@ public interface AppointmentService {
     String API_ROUTE_BOOKED_APPOINTMENTS = "/appointments";
     @GET(API_ROUTE_BOOKED_APPOINTMENTS)
     Call<List<Appointment>> getBookedAppointments(@Query("patient_id") int patient_id, @Query("status") String status);
+
+    String API_ROUTE_CONFIRMED_APPOINTMENT = "/appointments";
+    @GET(API_ROUTE_CONFIRMED_APPOINTMENT)
+    Call<Appointment> setConfirmedAppointment(String namePatient, String idAppointment);
 }
