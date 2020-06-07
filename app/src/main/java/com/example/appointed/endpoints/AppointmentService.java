@@ -6,6 +6,8 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AppointmentService {
@@ -25,4 +27,10 @@ public interface AppointmentService {
     String API_ROUTE_SEARCH_APPOINTMENTS = "/appointments/0";
     @GET(API_ROUTE_SEARCH_APPOINTMENTS)
     Call<List<Appointment>> getAppointments(@Query("doctor_id") int doctor_id, @Query("speciality_name") String speciality_name, @Query("day") Integer day, @Query("month") Integer month, @Query("year") Integer year);
+
+
+    String API_ROUTE_CONFIRMED_APPOINTMENT = "/appointments/{id}";
+    @PUT(API_ROUTE_CONFIRMED_APPOINTMENT)
+    Call<Appointment> updateConfirmedAppointment(@Path("id") int idAppointment, @Query("patient_name") String patient_name, @Query("patient_id") int patient_id);
+
 }

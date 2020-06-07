@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +37,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewAppointmentActivity extends AppCompatActivity {
 
+    Patient loggedPatient;
+
     private Spinner doctor_spinner;
     private Spinner day_spinner;
     private Spinner hour_spinner;
@@ -46,7 +49,6 @@ public class NewAppointmentActivity extends AppCompatActivity {
     private Button next_button;
     private int specialityId;
     private String specialityName;
-    private Patient loggedPatient;
     private Doctor doctorSelected;
     private Integer selectedDay = null;
     private Integer selectedMonth = null;
@@ -89,7 +91,9 @@ public class NewAppointmentActivity extends AppCompatActivity {
         hoursSpinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         hour_spinner.setAdapter(hoursSpinnerArrayAdapter);
         next_button = (Button) findViewById(R.id.next_button);
+
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
+
         specialityId = getIntent().getIntExtra("specialityId", 0);
         specialityName = getIntent().getStringExtra("specialityName");
         doctor_names.add("Seleccione un profesional ...");
@@ -128,12 +132,20 @@ public class NewAppointmentActivity extends AppCompatActivity {
             }
         });
 
-        next_button.setOnClickListener(new View.OnClickListener() {
+        next_button.setOnClickListener(new View.OnClickListener() {//ACA
             @Override
             public void onClick(View v) {
-                //TODO: HERE YOU WILL ADD THE INTENT TO THE NEXT ACTIVITY, YOU HAVE ALL THE APPOINTMENT'S INFO IN 'selectedAppointment'
-                //I know that you will struggle,  passing an entire object maybe tricky but it's already done in the app, good luck finding it
-                //if you have any doubts, don't hesitate to ask, but before I leave, Google is your friend
+                //namePatient = getIntent().getStringExtra("namePatient");
+
+                Intent intentDoctor_Appointment = new Intent(NewAppointmentActivity.this, ConfirmationActivity.class);
+                intentDoctor_Appointment.putExtra("Doctor",  doctorSelected);
+                intentDoctor_Appointment.putExtra("Appointment",selectedAppointment);
+                intentDoctor_Appointment.putExtra("loggedPatient", loggedPatient);
+
+                startActivity(intentDoctor_Appointment);
+
+
+
             }
         });
 

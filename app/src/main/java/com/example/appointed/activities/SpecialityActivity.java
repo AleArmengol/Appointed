@@ -83,7 +83,7 @@ public class SpecialityActivity extends AppCompatActivity {
                 Intent intentNewAppointment = new Intent(SpecialityActivity.this, NewAppointmentActivity.class);
                 intentNewAppointment.putExtra("specialityId", idSpecialitySelected);
                 intentNewAppointment.putExtra("specialityName", specialitySelected);
-                intentNewAppointment.putExtra("loggedPatinet", loggedPatient);
+                intentNewAppointment.putExtra("loggedPatient", loggedPatient);
                 startActivity(intentNewAppointment);
             }
         });
