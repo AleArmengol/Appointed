@@ -3,11 +3,14 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFFFF">
 
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
+        app:headerColor="#414370"
+        app:headerLabelColor="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

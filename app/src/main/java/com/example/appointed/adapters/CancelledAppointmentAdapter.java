@@ -40,8 +40,8 @@ public class CancelledAppointmentAdapter extends RecyclerView.Adapter<CancelledA
         final Appointment appointment = cancelledList.get(position);
         holder.textDoctorName.setText(appointment.getDoctor_name());
         holder.textSpecialityName.setText(appointment.getSpeciality_name());
-        holder.textStartTime.setText(appointment.getStart_time());
-        holder.textEndTime.setText(appointment.getEnd_time());
+        holder.textStartTime.setText("Fecha:" +" "+ appointment.getStart_time().substring(0,10));
+        holder.textEndTime.setText("De" +" "+ appointment.getStart_time().substring(11,16) + " "+ "A"+" "+appointment.getEnd_time().substring(11,16));
         holder.view.findViewById(R.id.view_cancelled);
     }
 

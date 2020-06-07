@@ -232,12 +232,12 @@ public class NewAppointmentActivity extends AppCompatActivity {
     }
 
     public void addItemsOnDoctorSpinner() {
-
+        doctor_names.clear();
+        doctor_names.add("Seleccione profesional");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         final DoctorService doctorService = retrofit.create(DoctorService.class);
         Call<List<Doctor>> call = doctorService.getDoctorsBySpeciality(specialityId, selectedDay, selectedMonth, selectedYear);
 

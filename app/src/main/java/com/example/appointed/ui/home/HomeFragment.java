@@ -52,7 +52,6 @@ public class HomeFragment extends Fragment {
                     specialityActivity.putExtra("loggedPatient", loggedPatient);
                     //patientHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  DEJAR ESTA LINEA COMENTADA
                     startActivity(specialityActivity);
-
                 }
                 else{
                     payment.setCancelable(true);
