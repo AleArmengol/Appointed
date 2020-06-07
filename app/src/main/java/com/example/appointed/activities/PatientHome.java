@@ -60,6 +60,7 @@ public class PatientHome extends AppCompatActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog.Builder payment = new AlertDialog.Builder(this);
 
+
         navigationView.getMenu().findItem(R.id.nav_log_out).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {

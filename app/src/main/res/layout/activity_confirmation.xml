@@ -194,7 +194,7 @@
         app:layout_constraintVertical_bias="0.895" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageMap"
         android:layout_width="216dp"
         android:layout_height="181dp"
         android:layout_marginTop="16dp"

@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Multipart;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
@@ -34,7 +35,14 @@ public interface AppointmentService {
     Call<List<Appointment>> getAppointments(@Query("doctor_id") int doctor_id, @Query("speciality_name") String speciality_name, @Query("day") Integer day, @Query("month") Integer month, @Query("year") Integer year);
 
 
+
+    String API_ROUTE_CONFIRMED_APPOINTMENT = "/appointments/{id}";
+    @PUT(API_ROUTE_CONFIRMED_APPOINTMENT)
+    Call<Appointment> updateConfirmedAppointment(@Path("id") int idAppointment, @Query("patient_name") String patient_name, @Query("patient_id") int patient_id);
+
+
     String API_ROUTE_CANCEL_APPOINTMENTS = "/appointments/{id}";
     @PUT(API_ROUTE_CANCEL_APPOINTMENTS)
     Call<Appointment> updateStatus(@Path("id")int id);
+
 }

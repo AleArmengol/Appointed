@@ -2,7 +2,7 @@ package com.example.appointed.models;
 
 import java.io.Serializable;
 
-public class Appointment {
+public class Appointment  implements Serializable  {
 
     private int id;
     private int doctor_id;

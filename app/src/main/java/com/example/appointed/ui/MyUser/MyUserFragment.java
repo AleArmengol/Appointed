@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.appointed.R;
+import com.example.appointed.activities.ConfirmationActivity;
 import com.example.appointed.activities.MainActivity;
 import com.example.appointed.models.Patient;
 import com.example.appointed.ui.login.LoginActivity;
