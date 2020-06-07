@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.appointed.R;
 import com.example.appointed.adapters.BookedAppointmentAdapter;
@@ -41,7 +42,7 @@ public class BookedAppointmentsFragment extends Fragment {
 
     public static BookedAppointmentsFragment newInstance() {
         return new BookedAppointmentsFragment();
-    }
+     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -51,6 +52,8 @@ public class BookedAppointmentsFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_booked_appointments,container,false);
 
 
+
+
         bookedAppointments = new ArrayList<>();
 
 
@@ -58,6 +61,10 @@ public class BookedAppointmentsFragment extends Fragment {
         return rootView;
     }
 
+    public void removeItem(int position){
+        bookedAppointments.remove(position);
+        appointmentAdapter.notifyItemRemoved(position);
+    }
 
     private void getAppointments() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -81,6 +88,7 @@ public class BookedAppointmentsFragment extends Fragment {
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(appointmentAdapter);
                 }
+
             }
 
             @Override

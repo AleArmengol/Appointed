@@ -57,11 +57,6 @@ public class HomeFragment extends Fragment {
                     //startActivity(ConfirmationActivity);
 
 
-
-
-
-
-
                 }
                 else{
                     payment.setCancelable(true);

@@ -5,7 +5,14 @@ import com.example.appointed.models.Appointment;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AppointmentService {
@@ -25,4 +32,9 @@ public interface AppointmentService {
     String API_ROUTE_SEARCH_APPOINTMENTS = "/appointments/0";
     @GET(API_ROUTE_SEARCH_APPOINTMENTS)
     Call<List<Appointment>> getAppointments(@Query("doctor_id") int doctor_id, @Query("speciality_name") String speciality_name, @Query("day") Integer day, @Query("month") Integer month, @Query("year") Integer year);
+
+
+    String API_ROUTE_CANCEL_APPOINTMENTS = "/appointments/{id}";
+    @PUT(API_ROUTE_CANCEL_APPOINTMENTS)
+    Call<Appointment> updateStatus(@Path("id")int id);
 }
