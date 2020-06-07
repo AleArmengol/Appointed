@@ -51,6 +51,7 @@ public class PatientHome extends AppCompatActivity {
         loggedPatient = (Patient) getIntent().getSerializableExtra("loggedPatient");
         TextView namePatient = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nameText);
         TextView emailPatient = (TextView) navigationView.getHeaderView(0).findViewById(R.id.emailText);
+        Log.d("get loggedPatient", loggedPatient.getEmail());
         namePatient.setText(loggedPatient.getName() + " " + loggedPatient.getLast_name());
         emailPatient.setText(loggedPatient.getEmail());
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
