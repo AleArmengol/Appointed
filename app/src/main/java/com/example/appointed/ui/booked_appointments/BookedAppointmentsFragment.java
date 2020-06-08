@@ -20,6 +20,7 @@ import com.example.appointed.R;
 import com.example.appointed.adapters.BookedAppointmentAdapter;
 import com.example.appointed.endpoints.AppointmentService;
 import com.example.appointed.models.Appointment;
+import com.example.appointed.models.Patient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class BookedAppointmentsFragment extends Fragment {
     private RecyclerView recyclerView;
     private BookedAppointmentAdapter appointmentAdapter;
     private ArrayList<Appointment> bookedAppointments;
+    private Patient loggedPatient;
 
 
     private BookedAppointmentsViewModel mViewModel;
@@ -67,12 +69,13 @@ public class BookedAppointmentsFragment extends Fragment {
     }
 
     private void getAppointments() {
+        loggedPatient = (Patient) getActivity().getIntent().getSerializableExtra("loggedPatient");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         AppointmentService aService = retrofit.create(AppointmentService.class);
-        Call<List<Appointment>> call = aService.getBookedAppointments(6, "booked");
+        Call<List<Appointment>> call = aService.getBookedAppointments(loggedPatient.getId(), "booked");
 
         call.enqueue(new Callback<List<Appointment>>() {
             @Override

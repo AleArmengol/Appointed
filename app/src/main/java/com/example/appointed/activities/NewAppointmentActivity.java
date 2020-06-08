@@ -124,6 +124,11 @@ public class NewAppointmentActivity extends AppCompatActivity {
                         next_button.setEnabled(true);
                     }
                 }
+                else {
+                    next_button.setAlpha(0.3f);
+                    next_button.setClickable(false);
+                    next_button.setEnabled(false);
+                }
             }
 
             @Override
@@ -159,6 +164,14 @@ public class NewAppointmentActivity extends AppCompatActivity {
                         enableHourSpinner();
                     }
                 }
+                else{
+                    doctorSelected = null;
+                    isDoctorSelected = false;
+                    hour_spinner.setAlpha(0.3f);
+                    hour_spinner.setClickable(false);
+                    hour_spinner.setEnabled(false);
+
+                }
             }
 
             @Override
@@ -170,6 +183,8 @@ public class NewAppointmentActivity extends AppCompatActivity {
     }
 
     private void populateSpinnerHours() {
+        hoursList.clear();
+        hoursList.add("Seleccione una hora");
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         AppointmentService appointmentService = retrofit.create(AppointmentService.class);
         Call<List<Appointment>> call = appointmentService.getAppointments(doctorSelected.getId(), specialityName, selectedDay, selectedMonth, selectedYear);

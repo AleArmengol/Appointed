@@ -22,6 +22,7 @@ import com.example.appointed.R;
 import com.example.appointed.adapters.PastAppointmentAdapter;
 import com.example.appointed.endpoints.AppointmentService;
 import com.example.appointed.models.Appointment;
+import com.example.appointed.models.Patient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,12 +64,13 @@ public class PastAppointmentsFragment extends Fragment {
     }
 
     private void getAppointments() {
+        Patient loggedPatient = (Patient) getActivity().getIntent().getSerializableExtra("loggedPatient");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         AppointmentService aService = retrofit.create(AppointmentService.class);
-        Call<List<Appointment>> call = aService.getPastAppointments(6,"past");
+        Call<List<Appointment>> call = aService.getPastAppointments(loggedPatient.getId(),"past");
 
         call.enqueue(new Callback<List<Appointment>>() {
             @Override

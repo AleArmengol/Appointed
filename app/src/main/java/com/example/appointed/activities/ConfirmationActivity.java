@@ -90,6 +90,7 @@ public class ConfirmationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentCancel = new Intent(ConfirmationActivity.this, SpecialityActivity.class);
+                intentCancel.putExtra("loggedPatient", loggedPatient);
                 startActivity(intentCancel);
             }
         });
@@ -125,6 +126,11 @@ public class ConfirmationActivity extends AppCompatActivity {
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
                 if(response.body()!=null){
                     Log.d("Funciono","funciono");
+                    Intent patientHomeActivity = new Intent(ConfirmationActivity.this, PatientHome.class);
+                    patientHomeActivity.putExtra("loggedPatient", loggedPatient);
+                    patientHomeActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(patientHomeActivity);
+                    finish();
                 }
             }
 
