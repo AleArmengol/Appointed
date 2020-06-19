@@ -96,16 +96,18 @@ public class CalendarActivity extends AppCompatActivity {
                 if(android.os.Debug.isDebuggerConnected()){
                     android.os.Debug.waitForDebugger();
                 }
-                Calendar clickedDayCalendar = eventDay.getCalendar();
-                int date = clickedDayCalendar.get(Calendar.DATE);
-                int month = clickedDayCalendar.get(Calendar.MONTH) + 1;
-                int year = clickedDayCalendar.get(Calendar.YEAR);
-                Intent outputIntent = new Intent();
-                outputIntent.putExtra("day", date);
-                outputIntent.putExtra("month", month);
-                outputIntent.putExtra("year", year);
-                setResult(Activity.RESULT_OK, outputIntent);
-                finish();
+                if(!disabledDates.contains(eventDay.getCalendar())) {
+                    Calendar clickedDayCalendar = eventDay.getCalendar();
+                    int date = clickedDayCalendar.get(Calendar.DATE);
+                    int month = clickedDayCalendar.get(Calendar.MONTH) + 1;
+                    int year = clickedDayCalendar.get(Calendar.YEAR);
+                    Intent outputIntent = new Intent();
+                    outputIntent.putExtra("day", date);
+                    outputIntent.putExtra("month", month);
+                    outputIntent.putExtra("year", year);
+                    setResult(Activity.RESULT_OK, outputIntent);
+                    finish();
+                }
             }
         });
 

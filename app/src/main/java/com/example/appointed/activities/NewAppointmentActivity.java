@@ -248,6 +248,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
 
     public void addItemsOnDoctorSpinner() {
         doctor_names.clear();
+        doctors.clear();
         doctor_names.add("Seleccione profesional");
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/")
