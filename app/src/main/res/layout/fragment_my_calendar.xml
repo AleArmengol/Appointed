@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".doctor.ui_doctor.doctor_calendar.DoctorsCalendarFragment">
+<devs.mulham.horizontalcalendar.HorizontalCalendarView
+    android:id="@+id/calendarView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_calendar"
+    app:textColorSelected="#FFFFFF"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+
+    >
+</devs.mulham.horizontalcalendar.HorizontalCalendarView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calendarView"
+        >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hour_range"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

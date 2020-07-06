@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 public interface DoctorService {
     String API_ROUTE="/doctors/0";
     @GET(API_ROUTE)
-    Call<Doctor> getDoctor(@Query("id") int id, @Query("email") String email);
+    Call<Doctor> getDoctor(@Query("email") String email);
 
 
 

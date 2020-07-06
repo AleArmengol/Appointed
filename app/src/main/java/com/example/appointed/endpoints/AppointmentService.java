@@ -45,4 +45,8 @@ public interface AppointmentService {
     @PUT(API_ROUTE_CANCEL_APPOINTMENTS)
     Call<Appointment> updateStatus(@Path("id")int id);
 
+    String API_ROUTE_DOCTORS_APPOINTMENTS = "/appointments/doctors_appointments_by_day";
+    @GET(API_ROUTE_DOCTORS_APPOINTMENTS)
+    Call<List<Appointment>> getDoctorsAppointments(@Query("doctor_id") int doctor_id, @Query("year") int year, @Query("month") int month, @Query("day") int day);
+
 }

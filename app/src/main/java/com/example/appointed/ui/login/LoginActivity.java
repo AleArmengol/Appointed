@@ -27,12 +27,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.appointed.activities.MainActivity;
 import com.example.appointed.R;
+import com.example.appointed.activities.DoctorHome;
 import com.example.appointed.activities.PatientHome;
 import com.example.appointed.endpoints.DoctorService;
 import com.example.appointed.endpoints.PatientService;
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private CheckBox rememberMeCb;
     Retrofit retrofit;
-    Doctor currentDoctor;
+    Doctor loggedDoctor;
     DoctorService doctorService;
     PatientService patientService;
     Patient loggedPatient;
@@ -198,7 +197,7 @@ public class LoginActivity extends AppCompatActivity {
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         doctorService = retrofit.create(DoctorService.class);
         String email = currentUser.getEmail();
-        Call<Doctor> callDoctor = doctorService.getDoctor(0, email);
+        Call<Doctor> callDoctor = doctorService.getDoctor(email);
 
         callDoctor.enqueue(new Callback<Doctor>() {
             @Override
@@ -208,7 +207,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if(responseDoctor.body() != null){
                     //TODO this is still not working, because a problem in the backend (doctors_controlelr.rb) Syntax Error (Probably git issue)
-                    currentDoctor = responseDoctor.body();
+                    loggedDoctor = responseDoctor.body();
+                    Intent doctorHomeIntent = new Intent(LoginActivity.this, DoctorHome.class);
+                    doctorHomeIntent.putExtra("loggedDoctor", loggedDoctor);
+                    Log.d("set loggedDoctor", loggedDoctor.getEmail());
+                    doctorHomeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(doctorHomeIntent);
                 } else { //if we didn't find the doctor, we will search for the patient
 
                     patientService = retrofit.create(PatientService.class);
