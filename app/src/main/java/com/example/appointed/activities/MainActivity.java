@@ -9,6 +9,7 @@ import retrofit2.Retrofit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         txtHello = (TextView) findViewById(R.id.txtHello);
         btnLogOut = (Button) findViewById(R.id.btnHello);
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         doctorService = retrofit.create(DoctorService.class);
-        Call<Doctor> callDoctor = doctorService.getDoctor(0, email);
+        Call<Doctor> callDoctor = doctorService.getDoctor(email);
 
         callDoctor.enqueue(new Callback<Doctor>() {
             @Override

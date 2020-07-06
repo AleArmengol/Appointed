@@ -6,17 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.appointed.R;
 import com.example.appointed.models.Patient;
 import com.example.appointed.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.logging.Logger;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;

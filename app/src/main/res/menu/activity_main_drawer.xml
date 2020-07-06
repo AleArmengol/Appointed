@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/doctor_nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_my_calendar"
+            android:icon="@drawable/ic_book"
+            android:title="@string/menu_my_calendar" />
+        <item
+            android:id="@+id/nav_presets"
+            android:icon="@drawable/ic_action_name"
+            android:title="@string/menu_presets" />
+        <item
+            android:id="@+id/nav_doctor_user"
+            android:icon="@drawable/ic_my_user"
+            android:title="@string/menu_user" />
+        <item
+            android:id="@+id/white"
+            android:enabled="false"
+            android:title=" " />
+        <item
+            android:id="@+id/white1"
+            android:enabled="false"
+            android:title=" " />
+        <item
+            android:id="@+id/whit2"
+            android:enabled="false"
+            android:title=" " />
+        <item
+            android:id="@+id/whit3"
+            android:enabled="false"
+            android:title=" " />
+        <item
+            android:id="@+id/whit4"
+            android:enabled="false"
+            android:title=" " />
+
+        <item
+            android:id="@+id/nav_log_out"
+            android:icon="@drawable/ic_log_out"
+            android:title="@string/menu_log_out"
+            />
+    </group>
+</menu>
