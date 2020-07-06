@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    >
+    <TextView android:id="@+id/seleccionarPresetTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="15dp"
+        android:text="Seleccionar Preset"
+        />
+
+    <Spinner
+        android:id="@+id/presetSpinner"
+        android:layout_width="281dp"
+        android:layout_height="34dp"
+        android:background="@drawable/custom_spinner"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/applyPresetBtn"
+        android:text="OK"
+        android:textSize="24dp" />
+</LinearLayout>
