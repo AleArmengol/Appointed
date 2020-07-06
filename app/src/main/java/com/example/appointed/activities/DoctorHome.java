@@ -18,12 +18,14 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.appointed.R;
+import com.example.appointed.models.Doctor;
+import com.example.appointed.models.Patient;
 import com.example.appointed.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class DoctorHome extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-
+    private Doctor loggedDoctor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,7 @@ public class DoctorHome extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.doctor_nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        loggedDoctor = (Doctor) getIntent().getSerializableExtra("loggedDoctor");
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.doctor_nav_home, R.id.nav_my_calendar, R.id.nav_presets, R.id.nav_doctor_user, R.id.nav_log_out)
                 .setDrawerLayout(drawer)

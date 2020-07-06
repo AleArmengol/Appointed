@@ -27,4 +27,8 @@ public interface DailyPresetService {
     @POST(API_ROUTE_CREATE_PRESET)
     Call<PresetPost> createPreset(@Body PresetPost post);
 
+    String API_ROUTE_WEEKLY_PRESETS = "/daily_presets";
+    @GET(API_ROUTE_WEEKLY_PRESETS)
+    Call<List<DailyPreset>> getDailyPresetsByDoctor(@Query("doctor_id") int doctor_id);
+
 }
