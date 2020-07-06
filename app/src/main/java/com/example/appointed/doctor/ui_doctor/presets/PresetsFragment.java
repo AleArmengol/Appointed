@@ -20,12 +20,13 @@ import com.example.appointed.doctor.ui_doctor.my_presets.MyPresetFragment;
 public class PresetsFragment extends Fragment {
     private ImageButton daily_presets_button;
     private PresetsViewModel slideshowViewModel;
+    private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
                 ViewModelProviders.of(this).get(PresetsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_presets, container, false);
+        root = inflater.inflate(R.layout.fragment_presets, container, false);
         daily_presets_button = (ImageButton) root.findViewById(R.id.daily_presets_button);
 
 
@@ -34,7 +35,7 @@ public class PresetsFragment extends Fragment {
             public void onClick(View v) {
                 MyPresetFragment mpfr = new MyPresetFragment();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.nav_host_fragment,mpfr).addToBackStack(null).commit();
+                manager.beginTransaction().replace(R.id.doctor_nav_host_fragment,mpfr).addToBackStack(null).commit();
             }
         });
 

@@ -49,4 +49,8 @@ public interface AppointmentService {
     @GET(API_ROUTE_DOCTORS_APPOINTMENTS)
     Call<List<Appointment>> getDoctorsAppointments(@Query("doctor_id") int doctor_id, @Query("year") int year, @Query("month") int month, @Query("day") int day);
 
+    String API_ROUTE_DOCTORS_CANCELLED_APPOINTMENTS = "/appointments/cancelled_appointments_by_doctor";
+    @GET(API_ROUTE_DOCTORS_CANCELLED_APPOINTMENTS)
+    Call<List<Appointment>> getCancelledAppointments(@Query("doctor_id") int doctor_id);
+
 }

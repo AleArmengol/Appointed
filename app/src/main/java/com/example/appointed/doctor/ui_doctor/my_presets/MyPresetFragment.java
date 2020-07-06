@@ -59,7 +59,7 @@ public class MyPresetFragment extends Fragment {
             public void onClick(View v) {
                 AddPresetFragment apfr = new AddPresetFragment();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.nav_host_fragment,apfr).addToBackStack(null).commit();
+                manager.beginTransaction().replace(R.id.doctor_nav_host_fragment,apfr).addToBackStack(null).commit();
             }
         });
 
@@ -69,7 +69,7 @@ public class MyPresetFragment extends Fragment {
             public void onClick(View v) {
                 AddPresetFragment apfr = new AddPresetFragment();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.nav_host_fragment,apfr).addToBackStack(null).commit();
+                manager.beginTransaction().replace(R.id.doctor_nav_host_fragment,apfr).addToBackStack(null).commit();
             }
         });
 
