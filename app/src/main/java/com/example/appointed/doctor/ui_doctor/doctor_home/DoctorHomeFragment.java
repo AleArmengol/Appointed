@@ -19,13 +19,18 @@ import com.example.appointed.R;
 import com.example.appointed.activities.EditCalendarActivity;
 import com.example.appointed.activities.SpecialityActivity;
 import com.example.appointed.doctor.ui_doctor.doctor_calendar.DoctorsCalendarFragment;
+
+import com.example.appointed.doctor.ui_doctor.doctor_cancelled_appointments.DoctorCancelledAppointmentsFragment;
+
 import com.example.appointed.models.Doctor;
 import com.example.appointed.models.Patient;
+
 
 
 public class DoctorHomeFragment extends Fragment {
 
     private ImageButton my_calendar_button;
+    private ImageButton cancelled_appointments_doctor;
 
     private DoctorHomeViewModel doctorHomeViewModel;
 
@@ -39,8 +44,12 @@ public class DoctorHomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(DoctorHomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_doctor_home, container, false);
         my_calendar_button = (ImageButton) root.findViewById(R.id.my_calendar_button);
+
+        cancelled_appointments_doctor = (ImageButton) root.findViewById(R.id.cancelled_appointments_doctor);
+
         loggedDoctor = (Doctor) getActivity().getIntent().getSerializableExtra("loggedDoctor");
         edit_calendar_button = (Button) root.findViewById(R.id.edit_calendar_button);
+
         doctorHomeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -63,6 +72,15 @@ public class DoctorHomeFragment extends Fragment {
                 DoctorsCalendarFragment dcfr = new DoctorsCalendarFragment();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.doctor_nav_host_fragment,dcfr).addToBackStack(null).commit();
+            }
+        });
+
+        cancelled_appointments_doctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DoctorCancelledAppointmentsFragment dcafr = new DoctorCancelledAppointmentsFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.doctor_nav_host_fragment,dcafr).addToBackStack(null).commit();
             }
         });
         return root;
